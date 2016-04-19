@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "lift.h"
+#include "passenger.h"
 
 using namespace std;
 
@@ -10,9 +11,10 @@ long long testTransitTimeCount = 0;
 
 Passenger generatePassenger(int maxFloor)
 {
-	Passenger p;
-	p.desFloor = rand() % (maxFloor + 1);
-	p.startFloor = rand() % (maxFloor + 1);
+	int desFloor = rand() % (maxFloor + 1);
+	int startFloor = rand() % (maxFloor + 1);
+	float weight = (float) rand() / RAND_MAX * PASSENGER_MAX_WEIGHT; 
+	Passenger p(weight, startFloor, desFloor);
 	//p.desFloor = 8;
 	//p.startFloor = 0;
 	return p;
@@ -25,10 +27,10 @@ void generatePassengers(int timeTick)
 	while (countPassengers > 0)
 	{
 		Passenger p = generatePassenger(Lift::getMaxFloor());
-		if (p.desFloor == p.startFloor) 
+		if (p.getDesFloor() == p.getStartFloor()) 
 			continue;
 		testPassengerCount++;
-		testTransitTimeCount += p.startFloor > p.desFloor ? p.startFloor - p.desFloor : p.desFloor - p.startFloor;
+		testTransitTimeCount += p.getStartFloor() > p.getDesFloor() ? p.getStartFloor() - p.getDesFloor() : p.getDesFloor() - p.getStartFloor();
 		Lift::newRequest(p);
 		countPassengers--;
 	}

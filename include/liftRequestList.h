@@ -13,7 +13,7 @@ public:
 	int nextRequestLowerThan(int floor);
 	int getPassengerNum(int floor);	// num of passengers at floor
 	bool haveRequest(int floor);
-	void newRequest(Passenger p);
+	void newRequest(Passenger* p);
 	Passenger* boardPassenger(int floor);
 private:
 	int maxFloor;

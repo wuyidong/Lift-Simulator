@@ -19,7 +19,7 @@ public:
 	static bool parseIni(IniField* fields, int count);
 	static void close();
 	static void runOneTimeTick();
-	static void newRequest(Passenger p);
+	static void newRequest(Passenger* p);
 
 	static void setMaxFloor(int maxFloor);
 	static int getMaxFloor();
@@ -77,7 +77,7 @@ private:
 	Direction direction;
 	int currFloor;
 	char state;
-	std::vector<std::vector<Passenger>> desFloorList;
+	std::vector<std::vector<Passenger*>> desFloorList;
 
 private:
 	static int maxFloor;

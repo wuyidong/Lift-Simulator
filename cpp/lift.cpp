@@ -1,6 +1,8 @@
 #include "lift.h"
+#include "passenger.h"
 #include <algorithm>
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -62,9 +64,13 @@ void Lift::init()
 
 bool Lift::parseIni(IniField* fields, int count)
 {
-	for (int i = 0; i < count; i++)
+	fstream fs;
+	fs.open(INI_FILE_PATH, ios_base::in);
+	if (!fs.is_open())
 	{
+		return false;
 	}
+
 	return true;
 }
 
@@ -84,9 +90,9 @@ Lift::Lift() : desFloorList(maxFloor + 1)
 	state = 0x0;	// stop, close door
 }
 
-void Lift::newRequest(Passenger p)
+void Lift::newRequest(Passenger* p)
 {
-	p.startTime = timeTick;	// time arriving at the floor
+	p.setStartTime(timeTick);	// time arriving at the floor
 	requestList.newRequest(p);
 }
 
@@ -134,9 +140,9 @@ void Lift::boardPassengers()
 	int num = min(capacity - count, requestList.getPassengerNum(currFloor));
 	for (int i = 0; i < num; i++)
 	{
-		Passenger p = requestList.boardPassenger(currFloor);
-		p.boardTime = timeTick;	// time boarding on a floor
-		desFloorList[p.desFloor].push_back(p);
+		Passenger* p = requestList.boardPassenger(currFloor);
+		p->setBoardTime(timeTick);	// time boarding on a floor
+		desFloorList[p->getDesFloor()].push_back(p);
 		count++;
 	}
 }
@@ -147,10 +153,10 @@ void Lift::getoffPassengers()
 	count -= desFloorList[currFloor].size();
 	for (int i = 0; i < desFloorList[currFloor].size(); i++)
 	{
-		Passenger p = desFloorList[currFloor][i];
-		p.getoffTime = timeTick;
-		waitTimeCount += p.boardTime - p.startTime;
-		transitTimeCount += p.getoffTime - p.boardTime;
+		Passenger* p = desFloorList[currFloor][i];
+		p->setGetoffTime(timeTick);
+		waitTimeCount += p->getBoardTime() - p->getStartTime();
+		transitTimeCount += p->getGetoffTime() - p->getBoardTime();
 		passengerCount++;
 	}
 	desFloorList[currFloor].clear();

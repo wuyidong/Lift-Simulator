@@ -1,6 +1,8 @@
 #ifndef PASSENGER_H
 #define PASSENGER_H
 
+#define PASSENGER_MAX_WEIGHT 100	// 100 kg
+
 class Passenger {
 private:
 	int startFloor;
@@ -15,7 +17,7 @@ public:
 	Passenger(int weight, int startFloor, int desFloor);
 
 	inline void setStartTime(int time) { startTime = time;}
-	inline void setBoardTime(int time) {boardTime = time;}
+	inline void setBoardTime(int time) { boardTime = time;}
 	inline void setGetoffTime(int time) { getoffTime = time;}
 
 	inline int getStartFloor() { return startFloor;}
