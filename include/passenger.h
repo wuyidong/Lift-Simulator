@@ -14,7 +14,7 @@ private:
 	float weight;
 
 public:
-	Passenger(int weight, int startFloor, int desFloor);
+	Passenger(int weight, int startFloor, int desFloor):weight(weight), startFloor(startFloor), desFloor(desFloor) {}
 
 	inline void setStartTime(int time) { startTime = time;}
 	inline void setBoardTime(int time) { boardTime = time;}

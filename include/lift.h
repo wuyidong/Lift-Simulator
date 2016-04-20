@@ -9,6 +9,8 @@
 #define INI_FIELD_COUNT 6
 #define INI_FILE_PATH "./config.ini"
 
+struct IniField;
+
 enum Direction { UP, DOWN };
 
 class Lift {
@@ -77,7 +79,7 @@ private:
 	Direction direction;
 	int currFloor;
 	char state;
-	std::vector<std::vector<Passenger*>> desFloorList;
+	std::vector<std::vector<Passenger*> > desFloorList;
 
 private:
 	static int maxFloor;
@@ -100,9 +102,9 @@ private:
 enum IniFieldType { INT, STRING };
 
 struct IniField {
-	string name;
+	std::string name;
 	IniFieldType type;
 	void* addr;
-}
+};
 
 #endif

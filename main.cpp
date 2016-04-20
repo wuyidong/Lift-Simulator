@@ -9,12 +9,12 @@ using namespace std;
 long long testPassengerCount = 0;
 long long testTransitTimeCount = 0;
 
-Passenger generatePassenger(int maxFloor)
+Passenger* generatePassenger(int maxFloor)
 {
 	int desFloor = rand() % (maxFloor + 1);
 	int startFloor = rand() % (maxFloor + 1);
 	float weight = (float) rand() / RAND_MAX * PASSENGER_MAX_WEIGHT; 
-	Passenger p(weight, startFloor, desFloor);
+	Passenger* p = new Passenger(weight, startFloor, desFloor);
 	//p.desFloor = 8;
 	//p.startFloor = 0;
 	return p;
@@ -26,11 +26,11 @@ void generatePassengers(int timeTick)
 	srand(time(NULL));
 	while (countPassengers > 0)
 	{
-		Passenger p = generatePassenger(Lift::getMaxFloor());
-		if (p.getDesFloor() == p.getStartFloor()) 
+		Passenger* p = generatePassenger(Lift::getMaxFloor());
+		if (p->getDesFloor() == p->getStartFloor()) 
 			continue;
 		testPassengerCount++;
-		testTransitTimeCount += p.getStartFloor() > p.getDesFloor() ? p.getStartFloor() - p.getDesFloor() : p.getDesFloor() - p.getStartFloor();
+		testTransitTimeCount += p->getStartFloor() > p->getDesFloor() ? p->getStartFloor() - p->getDesFloor() : p->getDesFloor() - p->getStartFloor();
 		Lift::newRequest(p);
 		countPassengers--;
 	}

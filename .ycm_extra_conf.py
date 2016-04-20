@@ -83,7 +83,7 @@ flags = [
 './tests/gmock/include',
 # my own include path set
 '-I',
-'./include'
+'./include',
 ]
 
 

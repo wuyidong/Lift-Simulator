@@ -92,7 +92,7 @@ Lift::Lift() : desFloorList(maxFloor + 1)
 
 void Lift::newRequest(Passenger* p)
 {
-	p.setStartTime(timeTick);	// time arriving at the floor
+	p->setStartTime(timeTick);	// time arriving at the floor
 	requestList.newRequest(p);
 }
 
@@ -158,6 +158,7 @@ void Lift::getoffPassengers()
 		waitTimeCount += p->getBoardTime() - p->getStartTime();
 		transitTimeCount += p->getGetoffTime() - p->getBoardTime();
 		passengerCount++;
+		delete p;
 	}
 	desFloorList[currFloor].clear();
 }

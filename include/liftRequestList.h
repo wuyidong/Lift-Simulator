@@ -17,7 +17,7 @@ public:
 	Passenger* boardPassenger(int floor);
 private:
 	int maxFloor;
-	std::vector<std::queue<Passenger*>> requests;
+	std::vector<std::queue<Passenger*> > requests;
 };
 
 #endif
