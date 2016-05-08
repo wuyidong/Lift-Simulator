@@ -42,11 +42,11 @@ int main(void)
 	int liftCount = 3;
 
 
-	Lift::setCapacity(capacity);
-	Lift::setMaxFloor(maxFloor);
-	Lift::setOpenTime(totalOpenTime);
-	Lift::setSpeed(speed);
-	Lift::setLiftCount(liftCount);
+	//Lift::setCapacity(capacity);
+	//Lift::setMaxFloor(maxFloor);
+	//Lift::setOpenTime(totalOpenTime);
+	//Lift::setSpeed(speed);
+	//Lift::setLiftCount(liftCount);
 
 	Lift::init();
 

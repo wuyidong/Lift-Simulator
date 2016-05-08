@@ -3,12 +3,14 @@
 #include <algorithm>
 #include <iostream>
 #include <fstream>
+#include <map>
 
 using namespace std;
 
 // default lift configuration
 int Lift::maxFloor = 9;
 int Lift::capacity = 12;
+int Lift::loadCapacity = 1000;
 int Lift::speed = 1;
 int Lift::totalOpenTime = 6;
 
@@ -56,20 +58,48 @@ void Lift::setLiftCount(int num)
 
 void Lift::init()
 {
+	map<string, IniField> paras;
+	paras.insert(make_pair("maxFloor", IniField("maxFloor", INT, &maxFloor)));
+	paras.insert(make_pair("capacity", IniField("capacity", INT, &capacity)));
+	paras.insert(make_pair("loadCapacity", IniField("loadCapacity", INT, &loadCapacity)));
+	paras.insert(make_pair("speed", IniField("speed", INT, &speed)));
+	paras.insert(make_pair("totalOpenTime", IniField("totalOpenTime", INT, &totalOpenTime)));
+	paras.insert(make_pair("liftCount", IniField("liftCount", INT, &liftCount)));
+	parseIni(paras);
+
 	for (int i = 0; i < liftCount; i++)
 	{
 		lifts[i] = new Lift();
 	}
 }
 
-bool Lift::parseIni(IniField* fields, int count)
+bool Lift::parseIni(map<string, IniField>& paras)
 {
-	fstream fs;
-	fs.open(INI_FILE_PATH, ios_base::in);
-	if (!fs.is_open())
+	ifstream file(INI_FILE_PATH);
+	if (!file.is_open())
 	{
 		return false;
 	}
+
+	string paraName, tmp;
+	while (file >> paraName)
+	{
+		IniField para = paras.find(paraName)->second;
+		if (paraName.compare(para.name) != 0)
+			return false;
+		switch (para.type)
+		{
+			case INT:
+				file >> tmp;	// skip =
+				file >> *((int*)para.addr);
+				break;
+			case STRING:
+				break;
+				// not implement
+		}
+	}
+	if (!file.eof())
+		return false;
 
 	return true;
 }

@@ -5,6 +5,7 @@
 #include "passenger.h"
 #include <vector>
 #include <string>
+#include <map>
 
 #define INI_FIELD_COUNT 6
 #define INI_FILE_PATH "./config.ini"
@@ -17,8 +18,8 @@ class Lift {
 public:
 	Lift();
 
-	static void init();
-	static bool parseIni(IniField* fields, int count);
+	static void init(); 
+	static bool parseIni(std::map<std::string, IniField>& paras);
 	static void close();
 	static void runOneTimeTick();
 	static void newRequest(Passenger* p);
@@ -102,6 +103,13 @@ private:
 enum IniFieldType { INT, STRING };
 
 struct IniField {
+	IniField(std::string name, IniFieldType type, void* addr)
+	{
+		this->name = name;
+		this->type = type;
+		this->addr = addr;
+	}
+
 	std::string name;
 	IniFieldType type;
 	void* addr;
