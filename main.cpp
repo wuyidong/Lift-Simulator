@@ -38,15 +38,7 @@ void generatePassengers(int timeTick)
 
 int main(void)
 {
-	int totalTime = 7200, maxFloor = 9, speed = 1, capacity = 12, totalOpenTime = 6;
-	int liftCount = 3;
-
-
-	//Lift::setCapacity(capacity);
-	//Lift::setMaxFloor(maxFloor);
-	//Lift::setOpenTime(totalOpenTime);
-	//Lift::setSpeed(speed);
-	//Lift::setLiftCount(liftCount);
+	int totalTime = 7200;
 
 	Lift::init();
 
